@@ -3,37 +3,63 @@ package ru.java.courses;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Shop {
-    HashMap<String, ArrayList<Box>> shelf = new HashMap<>();
+    static Map<String, List<Box>> shelf = new HashMap<>();
 
-    public Shop() {
-        shelf.put("Vobla", new ArrayList<Box>());
-        shelf.put("Salmon", new ArrayList<Box>());
-        shelf.put("Shuka", new ArrayList<Box>());
+    public static void deliver() {
+        Fish fishShuka = new Shuka.Builder("ShukaSea").setPrice(160).setDate(10).setValue(5).build();
+        Fish fishVobla = new Shuka.Builder("VoblaRiver").setPrice(80).setDate(10).setValue(13).build();
+        Fish fishSalmon = new Shuka.Builder("SalmonSea").setPrice(160).setDate(10).setValue(5).build();
+
+        Box shukaBox = new Box("Popov");
+        boxFill(fishShuka, shukaBox);
+
+        Box voblaBox = new Box("Sidorov");
+        boxFill(fishVobla, voblaBox);
+
+        Box salmonBox = new Box("Ivanov");
+        boxFill(fishSalmon, salmonBox);
+
+
+        shelf.put("Vobla", shelfFill(shukaBox));
+        shelf.put("Salmon", shelfFill(voblaBox));
+        shelf.put("Shuka", shelfFill(salmonBox));
     }
 
-    public int buy(String type, int count) {
+    private static void boxFill(Fish fish, Box box) {
+        for (int i = 0; i < 25; i++) {
+            box.addFish(fish);
+        }
+    }
+
+    private static List<Box> shelfFill(Box box) {
+        List<Box> boxes = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            boxes.add(box);
+        }
+        return boxes;
+    }
+
+
+    public static int buy(String type, int count) {
         if (shelf.containsKey(type)) {
 
             int buyCount = 0;
-            for (HashMap.Entry<String, ArrayList<Box>> entry : shelf.entrySet()) {
-                List<Box> fishBoxes = shelf.get(type);
+            List<Box> fishBoxes = shelf.get(type);
 
-                if (count <= fishBoxes.size()) {
-                    buyCount = count;
-                } else {
-                    buyCount = fishBoxes.size();
-                }
-                for (int pos = 0; pos < buyCount; pos++) {
-                    fishBoxes.remove(fishBoxes.size() - 1);
-                }
-                System.out.println(entry.getKey() + ":" + entry.getValue());
+            if (count <= fishBoxes.size()) {
+                buyCount = count;
+            } else {
+                buyCount = fishBoxes.size();
+            }
+            for (int pos = 0; pos < buyCount; pos++) {
+                fishBoxes.remove(fishBoxes.size() - 1);
             }
             return buyCount;
         }
         return 0;
-
     }
 
     public int sell(String type, int count) {
@@ -42,33 +68,22 @@ public class Shop {
     }
 
     public static void main(String[] args) {
-        Fish fishShuka = new Shuka.Builder("ShukaSea").setPrice(160).setDate(10).setValue(5).build();
-//      
 
-        Vobla vobla = new Vobla();
-        vobla.setDate(30);
-        vobla.setValue(1000);
+        deliver();
+        //System.out.println(shelf.get("Vobla").size());
 
-        Shuka shuka = new Shuka();
-        shuka.setDate(50);
-        shuka.setValue(100);
+        System.out.println("Vobla мы купили - " + buy("Vobla", 5));
+        System.out.println("Vobla мы купили - " + buy("Vobla", 5));
+        System.out.println("Vobla мы купили - " + buy("Vobla", 5));
 
-      /*  System.out.println("Имя рыбы : " + vobla.getName());
-        System.out.println("Цена: " + vobla.getPrice());
-        System.out.println("Кол-во: " + vobla.getValue());
-        System.out.println("годная рыба в течении : " + vobla.getDate());
-        System.out.println("************************************************ ");
 
-        System.out.println("Имя рыбы : " + shuka.getName());
-        System.out.println("Цена: " + shuka.getPrice());
-        System.out.println("Кол-во: " + shuka.getValue());
-        System.out.println("годная рыба в течении : " + shuka.getDate()); */
+//        System.out.println(fishShuka);
+//        System.out.println(fishVobla);
+//        System.out.println(fishSalmon);
 
-        // private int sales (int money,Box[] boxes){
-        // this.boxes = new boxes;
-        // this.boxes = new boxes;
 
     }
+
 
 }
 
