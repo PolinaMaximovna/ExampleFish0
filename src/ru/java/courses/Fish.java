@@ -60,4 +60,8 @@ public class Fish {
         }
     }
 
+    @Override
+    public String toString() {
+        return this.name + " - " + this.value + " - " + this.date +" - " + this.price;
+    }
 }

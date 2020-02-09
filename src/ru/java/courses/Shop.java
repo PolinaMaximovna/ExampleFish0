@@ -2,10 +2,9 @@ package ru.java.courses;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Shop {
-
-
     HashMap<String, ArrayList<Box>> shelf = new HashMap<>();
 
     public Shop() {
@@ -15,8 +14,26 @@ public class Shop {
     }
 
     public int buy(String type, int count) {
+        if (shelf.containsKey(type)) {
 
-        return (count);
+            int buyCount = 0;
+            for (HashMap.Entry<String, ArrayList<Box>> entry : shelf.entrySet()) {
+                List<Box> fishBoxes = shelf.get(type);
+
+                if (count <= fishBoxes.size()) {
+                    buyCount = count;
+                } else {
+                    buyCount = fishBoxes.size();
+                }
+                for (int pos = 0; pos < buyCount; pos++) {
+                    fishBoxes.remove(fishBoxes.size() - 1);
+                }
+                System.out.println(entry.getKey() + ":" + entry.getValue());
+            }
+            return buyCount;
+        }
+        return 0;
+
     }
 
     public int sell(String type, int count) {
@@ -25,15 +42,8 @@ public class Shop {
     }
 
     public static void main(String[] args) {
-
-
-
-        Fish fish = new Fish.Builder("Salmon").setPrice(160).setDate(10).setValue(5).build();
-
-        System.out.println(fish.getName());
-        System.out.println(fish.getPrice());
-        System.out.println(fish.getDate());
-        System.out.println(fish.getValue());
+        Fish fishShuka = new Shuka.Builder("ShukaSea").setPrice(160).setDate(10).setValue(5).build();
+//      
 
         Vobla vobla = new Vobla();
         vobla.setDate(30);
@@ -43,7 +53,7 @@ public class Shop {
         shuka.setDate(50);
         shuka.setValue(100);
 
-        System.out.println("Имя рыбы : " + vobla.getName());
+      /*  System.out.println("Имя рыбы : " + vobla.getName());
         System.out.println("Цена: " + vobla.getPrice());
         System.out.println("Кол-во: " + vobla.getValue());
         System.out.println("годная рыба в течении : " + vobla.getDate());
@@ -52,10 +62,10 @@ public class Shop {
         System.out.println("Имя рыбы : " + shuka.getName());
         System.out.println("Цена: " + shuka.getPrice());
         System.out.println("Кол-во: " + shuka.getValue());
-        System.out.println("годная рыба в течении : " + shuka.getDate());
+        System.out.println("годная рыба в течении : " + shuka.getDate()); */
 
-       // private int sales (int money,Box[] boxes){
-       // this.boxes = new boxes;
+        // private int sales (int money,Box[] boxes){
+        // this.boxes = new boxes;
         // this.boxes = new boxes;
 
     }
