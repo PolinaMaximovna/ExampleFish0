@@ -62,24 +62,15 @@ public class Shop {
         return 0;
     }
 
-    public int sell(String type, int count) {
-
-        return 0;
-    }
-
     public static void main(String[] args) {
 
         deliver();
-        //System.out.println(shelf.get("Vobla").size());
+
 
         System.out.println("Vobla мы купили - " + buy("Vobla", 5));
         System.out.println("Vobla мы купили - " + buy("Vobla", 5));
         System.out.println("Vobla мы купили - " + buy("Vobla", 5));
 
-
-//        System.out.println(fishShuka);
-//        System.out.println(fishVobla);
-//        System.out.println(fishSalmon);
 
 
     }
